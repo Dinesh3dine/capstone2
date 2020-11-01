@@ -17,6 +17,12 @@ pipeline {
 			sh "docker run -d -p 82:80 --name=mywebsiteapp venkys3/mywebsiteapp:$BUILD_NUMBER"
          }
       }
+	stage('Website test') {
+         agent { label 'test' }
+         steps {
+           sh "java -jar /home/ubuntu/workspace/My-CICD-pipeline/testcase.jar"
+         }
+	  }
 	stage('Push to Docker hub'){ 
 	agent { label 'test' } 
         steps {
