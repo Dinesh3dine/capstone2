@@ -13,7 +13,9 @@ pipeline {
             		sh "sudo docker stop mywebsiteapp 2> /dev/null || true"
 			sh "sudo docker rm mywebsiteapp 2> /dev/null || true"
 			sh "sudo docker rmi mywebsiteapp 2> /dev/null || true"
-                        sh "docker build -t venkys3/mywebsiteapp:latest ."
+                        sh "docker build -t mywebsiteapp:latest ."
+			sh "docker tag mywebsiteapp venkys3/mywebsiteapp:latest"
+			sh "docker tag mywebsiteapp venkys3/mywebsiteapp:$BUILD_NUMBER"
 			sh "docker run -d -p 82:80 --name=mywebsiteapp venkys3/mywebsiteapp:latest"
          }
       }
@@ -26,8 +28,10 @@ pipeline {
 	  stage('Push to Docker hub') {
          agent { label 'test' }
          steps {
-            sh "sudo docker push venky3/mywebsiteapp:latest"
-         }
+            	withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ])
+		sh "docker push venkys3/mywebsiteapp:latest"
+                sh "docker push venkys3/mywebsiteapp:$BUILD_NUMBER"
+	}
       }
 	  stage('Publish to Production') {
          agent { label 'prod' }
