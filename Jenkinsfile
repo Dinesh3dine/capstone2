@@ -25,7 +25,7 @@ pipeline {
 	  stage('Push to Docker hub') {
          agent { label 'test' }
          steps {
-            sh "sudo docker push mywebsiteapp:latest"
+            sh "sudo docker push venkys3/mywebsiteapp"
          }
       }
 	  stage('Publish to Production') {
