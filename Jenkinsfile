@@ -14,12 +14,12 @@ pipeline {
 			sh "docker run -d -p 82:80 --name=mywebsiteapp mywebsiteapp:BUILD_NUMBER"
          }
       }
-	  stage('Website test') {
-         agent { label 'test' }
-         steps {
-           sh "java -jar testcase.jar"
-         }
-	  }
+	 // stage('Website test') {
+         //agent { label 'test' }
+        // steps {
+          // sh "java -jar testcase.jar"
+        // }
+	 // }
 	  stage('Push to Docker hub') {
          agent { label 'Build' }
          steps {
