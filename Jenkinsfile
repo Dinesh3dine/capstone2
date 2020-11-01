@@ -12,6 +12,7 @@ pipeline {
          steps {
             		sh "sudo docker stop mywebsiteapp 2> /dev/null || true"
 			sh "sudo docker rm mywebsiteapp 2> /dev/null || true"
+			sh "sudo docker rmi mywebsiteapp 2> /dev/null || true"
                         sh "docker build -t mywebsiteapp:latest ."
 			sh "docker run -d -p 82:80 --name=mywebsiteapp mywebsiteapp:latest"
          }
@@ -25,7 +26,7 @@ pipeline {
 	  stage('Push to Docker hub') {
          agent { label 'test' }
          steps {
-            sh "sudo docker push venkys3/mywebsiteapp:latest"
+            sh "sudo docker push mywebsiteapp:latest"
          }
       }
 	  stage('Publish to Production') {
