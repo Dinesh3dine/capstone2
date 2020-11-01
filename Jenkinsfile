@@ -10,7 +10,9 @@ pipeline {
       stage('Build website') {
          agent { label 'test' }
          steps {
-            sh "docker build -t mywebsiteapp:BUILD_NUMBER ."
+            		sh "sudo docker stop mywebsiteapp 2> /dev/null || true"
+			sh "sudo docker rm mywebsiteapp 2> /dev/null || true"
+                        sh "docker build -t mywebsiteapp:BUILD_NUMBER ."
 			sh "docker run -d -p 82:80 --name=mywebsiteapp mywebsiteapp:BUILD_NUMBER"
          }
       }
