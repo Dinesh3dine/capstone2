@@ -23,7 +23,7 @@ pipeline {
         // }
 	 // }
 	  stage('Push to Docker hub') {
-         agent { label 'Build' }
+         agent { label 'test' }
          steps {
             sh "sudo docker push venkys3/mywebsiteapp:BUILD_NUMBER ."
          }
