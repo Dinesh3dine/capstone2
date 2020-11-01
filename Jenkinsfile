@@ -20,7 +20,7 @@ pipeline {
 	stage('Push to Docker hub'){ 
 	agent { label 'test' } 
         steps {
-        	withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]){
+        	withDockerRegistry([ credentialsId: "dockerhub-id", url: "https://index.docker.io/v1/" ]){
 		sh "sudo docker push venkys3/mywebsiteapp:$BUILD_NUMBER"}
 	}
 	}
