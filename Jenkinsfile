@@ -23,11 +23,12 @@ pipeline {
           // sh "java -jar testcase.jar"
         // }
 	 // }
-	  stage('Push to Docker hub') {
-         agent { label 'test' }
+	  stage('Push to Docker hub') 
+		agent { label 'test' } 
          steps {
-            	withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ])
+            	withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]){
 		sh "sudo docker push venkys3/mywebsiteapp:$BUILD_NUMBER"
+		}
 	}
       }
 	  stage('Publish to Production') {
