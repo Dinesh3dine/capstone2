@@ -26,9 +26,6 @@ pipeline {
 	}
         stage('Publish to Production') {
          agent { label 'prod' }
-         when {
-          branch 'master'
-          }
          steps {
             git 'https://github.com/venkys3/capstone2.git'
             sh "sudo docker stop mywebsiteapp 2> /dev/null || true"
