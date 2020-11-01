@@ -14,7 +14,6 @@ pipeline {
 			sh "sudo docker rm mywebsiteapp 2> /dev/null || true"
 			sh "sudo docker rmi mywebsiteapp 2> /dev/null || true"
                         sh "docker build -t mywebsiteapp:latest ."
-			sh "docker tag mywebsiteapp venkys3/mywebsiteapp:latest"
 			sh "docker tag mywebsiteapp venkys3/mywebsiteapp:$BUILD_NUMBER"
 			sh "docker run -d -p 82:80 --name=mywebsiteapp venkys3/mywebsiteapp:latest"
          }
@@ -29,8 +28,7 @@ pipeline {
          agent { label 'test' }
          steps {
             	withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ])
-		sh "sudo docker push venkys3/mywebsiteapp:latest"
-                sh "sudo docker push venkys3/mywebsiteapp:$BUILD_NUMBER"
+		sh "sudo docker push venkys3/mywebsiteapp:$BUILD_NUMBER"
 	}
       }
 	  stage('Publish to Production') {
