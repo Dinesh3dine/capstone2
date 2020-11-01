@@ -20,7 +20,7 @@ pipeline {
 	stage('Website test') {
          agent { label 'test' }
          steps {
-           sh "java -jar /home/ubuntu/workspace/My-CICD-pipeline/testcase.jar"
+           sh "java -jar /home/ubuntu/workspace/My-CICD-pipeline/test.jar"
          }
 	  }
 	stage('Push to Docker hub'){ 
