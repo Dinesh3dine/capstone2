@@ -17,21 +17,14 @@ pipeline {
 			sh "docker run -d -p 82:80 --name=mywebsiteapp venkys3/mywebsiteapp:$BUILD_NUMBER"
          }
       }
-	 // stage('Website test') {
-         //agent { label 'test' }
-        // steps {
-          // sh "java -jar testcase.jar"
-        // }
-	 // }
-	  stage('Push to Docker hub') 
-		agent { label 'test' } 
-         steps {
-            	withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]){
-		sh "sudo docker push venkys3/mywebsiteapp:$BUILD_NUMBER"
-		}
+	stage('Push to Docker hub'){ 
+	agent { label 'test' } 
+        steps {
+        	withDockerRegistry([ credentialsId: "dockerhub-id", url: "" ]){
+		sh "sudo docker push venkys3/mywebsiteapp:$BUILD_NUMBER"}
 	}
-      }
-	  stage('Publish to Production') {
+	}
+        stage('Publish to Production') {
          agent { label 'prod' }
          when {
           branch 'master'
