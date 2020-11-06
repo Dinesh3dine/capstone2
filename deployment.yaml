@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mywebapp
+spec:
+  selector:
+    matchLabels:
+      app: mywebapp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: mywebapp
+    spec:
+      containers:
+      - name: mywebapp
+        image: venkys3/mywebsiteapp:28
+        ports:
+        - containerPort: 82
